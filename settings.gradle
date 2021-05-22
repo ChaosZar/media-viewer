@@ -1,3 +1,4 @@
 rootProject.name = 'media-viewer'
 include 'server'
+include 'picture-import-runner'
 

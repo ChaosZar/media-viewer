@@ -6,7 +6,7 @@ info:
 paths:
   /media/pictures:
     get:
-      summary: of all picture metadata
+      summary: All picture metadata
       responses:
         '200':
           description: An Array of all metadata

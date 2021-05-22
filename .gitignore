@@ -20,3 +20,5 @@ picture-viewer/.env.production.local
 picture-viewer/npm-debug.log*
 picture-viewer/yarn-debug.log*
 picture-viewer/yarn-error.log*
+/media.h2.db
+/media.lock.db
