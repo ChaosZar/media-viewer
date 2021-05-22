@@ -1,0 +1,22 @@
+.gradle
+.idea
+gradle
+build
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+picture-viewer/node_modules
+picture-viewer/.pnp
+picture-viewer/.pnp.js
+picture-viewer/coverage
+picture-viewer/build
+picture-viewer/.DS_Store
+picture-viewer/.env.local
+picture-viewer/.env.development.local
+picture-viewer/.env.test.local
+picture-viewer/.env.production.local
+picture-viewer/npm-debug.log*
+picture-viewer/yarn-debug.log*
+picture-viewer/yarn-error.log*

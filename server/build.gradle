@@ -1,0 +1,64 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "org.openapi.generator" version "5.1.1"
+    id 'java'
+}
+
+group = 'org.rynios.media.viewer'
+version = '0.1.0'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$projectDir/src/main/resources/interface/openapi.yml"
+    outputDir = "$buildDir/generated"
+    modelNameSuffix = "V1"
+    packageName = "org.openapi.example"
+    apiPackage = "org.openapi.example.api"
+    invokerPackage = "org.openapi.example.invoker"
+    modelPackage = "org.openapi.example.model"
+    configOptions = [
+            dateLibrary            : "java8",
+            hateoas                : 'false',
+            hideGenerationTimestamp: 'true',
+            interfaceOnly          : 'true',
+            useOptional            : 'true',
+            sourceFolder           : 'sources/src/main/java'
+    ]
+}
+
+compileJava.dependsOn tasks.openApiGenerate
+
+sourceSets {
+    main {
+        java.srcDirs = [new File('build/generated/sources/src/main/java'), new File('src/main/java')]
+    }
+}
+
+dependencies {
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+
+    // Dependencies to generate Java Classes from Open Api definition
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    implementation group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.1'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+
+    //Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

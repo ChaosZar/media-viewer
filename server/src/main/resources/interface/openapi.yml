@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: media api
+  description: returns metadata to available media
+  version: 0.1.0
+paths:
+  /media/pictures:
+    get:
+      summary: of all picture metadata
+      responses:
+        '200':
+          description: An Array of all metadata
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Picture"
+components:
+  schemas:
+    Picture:
+      properties:
+        id:
+          type: integer
+        path:
+          type: string
+      required:
+        - id
+        - path
