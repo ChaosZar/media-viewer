@@ -5,6 +5,7 @@ import {PictureDirectory} from "../PictureDirectory";
 import {Card} from "primereact/card";
 import "./PictureList.css";
 import {Dialog} from "primereact/dialog";
+import {Ripple} from "primereact/ripple";
 
 type PictureProps = {
     dir: PictureDirectory
@@ -29,20 +30,18 @@ export const PictureList = (props: PictureProps) => {
     }
 
     function getMediaThumb(pic: Picture) {
+        let fitBorderStyle = {maxHeight: "100%", maxWidth: "100%", height: "auto", width: "auto"};
         if (pic.mediatype?.startsWith("video")) {
-            return <video style={{maxHeight: "100%", maxWidth: "100%", height: "auto", width: "auto"}}
-                          playsInline={false} controls={false} autoPlay={false}
-                          src={getSrc(pic)}/>;
+            return <img style={fitBorderStyle} alt={"/logo192.png"} src={"/logo192.png"}/>;
         } else {
-            return <img style={{maxHeight: "100%", maxWidth: "100%", height: "auto", width: "auto"}}
-                        alt={dir.path}
-                        src={getSrc(pic)}/>;
+            return <img style={fitBorderStyle} alt={dir.path} src={getSrc(pic)}/>;
         }
     }
 
     function renderPicture(pic: Picture) {
-        return <Card className="hoverable p-text-center">
-            <div style={{width: 200, height: 200}} onClick={() => showDialog(pic)}>
+        return <Card className="hoverable p-text-center p-mb-2">
+            <div style={{width: 200, height: 200}} onClick={() => showDialog(pic)} className="p-ripple">
+                <Ripple/>
                 {getMediaThumb(pic)}
             </div>
             <div style={{maxWidth: 200}} className="p-text-center">{pic.name}</div>
@@ -55,9 +54,9 @@ export const PictureList = (props: PictureProps) => {
 
     function renderDialogContent(picture: Picture) {
         if (picture.mediatype?.startsWith("video")) {
-            return <video src={getSrc(picture)} controls={true}/>
+            return <video src={getSrc(picture)} controls={true} style={{maxWidth: "90vw"}}/>
         } else {
-            return <img alt={picture.name} src={getSrc(picture)}/>
+            return <img alt={picture.name} src={getSrc(picture)} style={{maxWidth: "90vw"}}/>
         }
     }
 
@@ -71,7 +70,8 @@ export const PictureList = (props: PictureProps) => {
                 </div>
             </div>
             <Dialog onHide={() => setShowPicture(false)}
-                    visible={showPicture} header={picture.name} modal={true} draggable={false} resizable={false}>
+                    visible={showPicture} header={""} modal={true} draggable={false} resizable={false}
+            >
                 {renderDialogContent(picture)}
             </Dialog>
 
