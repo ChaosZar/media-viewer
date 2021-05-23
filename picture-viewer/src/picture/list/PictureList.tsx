@@ -34,18 +34,24 @@ export const PictureList = (props: PictureProps) => {
         if (pic.mediatype?.startsWith("video")) {
             return <img style={fitBorderStyle} alt={"/logo192.png"} src={"/logo192.png"}/>;
         } else {
-            return <img style={fitBorderStyle} alt={dir.path} src={getSrc(pic)}/>;
+            return <img className={"p-d-block p-mx-auto"} style={fitBorderStyle} alt={dir.path} src={getSrc(pic)}/>;
         }
     }
 
+    function pictureFooter(pic: Picture) {
+        return <div style={{maxWidth: 200}} className="p-text-center">{pic.name}</div>;
+    }
+
     function renderPicture(pic: Picture) {
-        return <Card className="hoverable p-text-center p-mb-2">
-            <div style={{width: 200, height: 200}} onClick={() => showDialog(pic)} className="p-ripple">
-                <Ripple/>
-                {getMediaThumb(pic)}
-            </div>
-            <div style={{maxWidth: 200}} className="p-text-center">{pic.name}</div>
-        </Card>
+        return <div className="hoverable p-text-center p-mx-auto p-mb-2 p-flex-column p-ripple"
+                    onClick={() => showDialog(pic)}>
+            <Ripple/>
+            <Card footer={pictureFooter(pic)}>
+                <div style={{width: 200, height: 200}}>
+                    {getMediaThumb(pic)}
+                </div>
+            </Card>
+        </div>
     }
 
     function getSrc(picture: Picture) {
