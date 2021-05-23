@@ -1,32 +1,25 @@
 package org.rynios.media.viewer.picture.db;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Data;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Data
 @Entity
 public class Picture {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column
-    private String path;
+    private String filename;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Column
+    private LocalDateTime lastChanged;
 
-    @Id
-    public Integer getId() {
-        return id;
-    }
+    @Column
+    private String mediaType;
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 }

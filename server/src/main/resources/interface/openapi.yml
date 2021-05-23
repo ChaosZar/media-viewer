@@ -7,6 +7,15 @@ paths:
   /media/pictures:
     get:
       summary: All picture metadata
+      tags:
+        - pictures
+      parameters:
+        - in: query
+          name: dir
+          schema:
+            type: integer
+          description: id of the parent Directory
+          required: true
       responses:
         '200':
           description: An Array of all metadata
@@ -16,9 +25,38 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Picture"
+
+  /media/pictures/directories:
+    get:
+      summary: All Directories where pictures are contained
+      tags:
+        - directory
+      operationId: getAllDirectories
+      responses:
+        '200':
+          description: Array of directories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Directory'
+
 components:
   schemas:
     Picture:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        mediatype:
+          type: string
+      required:
+        - id
+        - name
+
+    Directory:
       properties:
         id:
           type: integer

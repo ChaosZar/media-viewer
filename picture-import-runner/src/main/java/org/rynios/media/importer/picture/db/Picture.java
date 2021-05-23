@@ -1,17 +1,23 @@
 package org.rynios.media.importer.picture.db;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Picture {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column
-    private String path;
+    private String filename;
+
+    @Column
+    private LocalDateTime lastChanged;
+
+    @Column
+    private String mediaType;
 
     public Integer getId() {
         return id;
@@ -21,11 +27,27 @@ public class Picture {
         this.id = id;
     }
 
-    public String getPath() {
-        return path;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public LocalDateTime getLastChanged() {
+        return lastChanged;
+    }
+
+    public void setLastChanged(LocalDateTime lastChanged) {
+        this.lastChanged = lastChanged;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 }

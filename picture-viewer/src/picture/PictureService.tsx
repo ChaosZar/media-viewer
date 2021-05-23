@@ -1,14 +1,12 @@
 import {Picture} from "./Picture";
+import {PictureDirectory} from "./PictureDirectory";
 
 export class PictureService {
 
-    getPictures() : Promise<Picture[]> {
-        return fetch( `${process.env.SERVER_BASE_URL}/media/pictures`)
-            // the JSON body is taken from the response
+    getPictures(dir: PictureDirectory): Promise<Picture[]> {
+        return fetch(`${process.env.REACT_APP_SERVER_URL}` + "/media/pictures?dir=" + dir.id)
             .then(res => res.json())
-            .then(res => {
-                return res as Picture[]
-            })
+            .then(res => res as Picture[])
     }
 
 }

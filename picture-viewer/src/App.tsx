@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import {PictureList} from "./picture/list/PictureList";
+import {DirectoryList} from "./picture/list/DirectoryList";
 
 function App() {
     return (
         <div>
-            <PictureList/>
+            <DirectoryList/>
         </div>
     );
 }

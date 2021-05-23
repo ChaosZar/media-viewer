@@ -1,4 +1,10 @@
-export class Picture{
+export class Picture {
     id?: number;
-    path?: string;
+    name?: string;
+    mediatype?: string;
+
+    isVideo() {
+        return this.mediatype?.startsWith("video");
+    }
+
 }

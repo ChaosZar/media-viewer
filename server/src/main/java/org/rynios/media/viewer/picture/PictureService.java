@@ -1,11 +1,12 @@
 package org.rynios.media.viewer.picture;
 
 import org.openapi.example.model.PictureV1;
+import org.rynios.media.viewer.picture.db.DirectoryRepository;
 import org.rynios.media.viewer.picture.db.Picture;
-import org.rynios.media.viewer.picture.db.PictureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,10 +14,11 @@ import java.util.stream.Collectors;
 public class PictureService {
 
     @Autowired
-    private PictureRepository pictureRepository;
+    private DirectoryRepository directoryRepository;
 
-    public List<PictureV1> findAllPictures() {
-        return pictureRepository.findAll().stream()
+    public List<PictureV1> findAllPictures(Integer directoryId) {
+        return directoryRepository.findById(directoryId).getPictures().stream()
+                .sorted(Comparator.comparing(Picture::getLastChanged).reversed())
                 .map(this::convert)
                 .collect(Collectors.toList());
     }
@@ -24,7 +26,8 @@ public class PictureService {
     private PictureV1 convert(Picture picture) {
         return new PictureV1()
                 .id(picture.getId())
-                .path(picture.getPath());
+                .name(picture.getFilename())
+                .mediatype(picture.getMediaType());
     }
 
 }
