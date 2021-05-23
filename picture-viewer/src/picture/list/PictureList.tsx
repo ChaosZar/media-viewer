@@ -30,11 +30,10 @@ export const PictureList = (props: PictureProps) => {
     }
 
     function getMediaThumb(pic: Picture) {
-        let fitBorderStyle = {maxHeight: "100%", maxWidth: "100%", height: "auto", width: "auto"};
         if (pic.mediatype?.startsWith("video")) {
-            return <img style={fitBorderStyle} alt={"/logo192.png"} src={"/logo192.png"}/>;
+            return <img className="fitInBorder" alt={"/logo192.png"} src={"/logo192.png"}/>;
         } else {
-            return <img className={"p-d-block p-mx-auto"} style={fitBorderStyle} alt={dir.path} src={getSrc(pic)}/>;
+            return <img className={"fitInBorder p-d-block p-mx-auto"} alt={dir.path} src={getSrc(pic)}/>;
         }
     }
 
